@@ -107,13 +107,16 @@ for item in top_artists_names:
 
     if events:
         filtered_events = filter_events_by_date(events, 90)
+        print("-----------------------------------------------------------------------")
         print(f"Found {len(filtered_events)} events for '{item}' in the next 90 days:")
+        print("-----------------------------------------------------------------------")
         for event in filtered_events:
             event_name = event['name']
             event_date = event['dates']['start']['localDate']
             event_time = event['dates']['start'].get('localTime', 'Time not available')
             event_url = event.get('url', 'URL not available')
 
-            print(event_name, event_date, event_time, event_url)
+            print(event_name, event_date, event_time)
+            print(event_url)
     else:
         print(f"No events found for '{item}'.")

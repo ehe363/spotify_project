@@ -1,13 +1,13 @@
 # spotify_project
 
-Create a virtual environment:
-
+#Create a virtual environment:
 conda create -n spotify-env python=3.10
 
+#Activate your virtual environment:
 conda activate spotify-env
 
+#Install packages:
 pip install -r requirements.txt
 
-#run the app
-
+#Run the app:
 python -m app
