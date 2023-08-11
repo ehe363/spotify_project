@@ -1,6 +1,24 @@
-client_id = input("Please enter your SPOTIPY_CLIENT_ID: ")
-client_secret = input("Please enter your SPOTIPY_CLIENT_SECRET: ")
-redirect_uri = input("Please enter Redirect URI:")
+import os
+from requests_oauthlib import OAuth2Session
+from requests.auth import HTTPBasicAuth
+import json
+from IPython.display import Image, display
+from pprint import pprint
+from dotenv import load_dotenv
+from IPython.core.interactiveshell import import_item
+import requests
+from datetime import datetime, timedelta
+
+load_dotenv() #> invoking this function loads contents of the ".env" file into the script's environment...
+
+
+client_id = os.getenv("CLIENT_ID")
+client_secret = os.getenv("CLIENT_SECRET")
+redirect_uri = os.getenv("REDIRECT_URI")
+
+#client_id = input("Please enter your SPOTIPY_CLIENT_ID: ")
+#client_secret = input("Please enter your SPOTIPY_CLIENT_SECRET: ")
+#redirect_uri = input("Please enter Redirect URI:")
 # OAuth endpoints given in the Spotify API documentation
 # https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 authorization_base_url = "https://accounts.spotify.com/authorize"
@@ -8,14 +26,14 @@ token_url = "https://accounts.spotify.com/api/token"
 # https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 scope = ["user-read-currently-playing",
          "user-top-read"]
-from requests_oauthlib import OAuth2Session
+
 spotify = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
 # Redirect user to Spotify for authorization
 authorization_url, state = spotify.authorization_url(authorization_base_url)
 print('Please go here and authorize: ', authorization_url)
 # Get the authorization verifier code from the callback url
 redirect_response = input('\n\nPaste the full redirect URL here: ')
-from requests.auth import HTTPBasicAuth
+
 auth = HTTPBasicAuth(client_id, client_secret)
 # Fetch the access token
 token = spotify.fetch_token(token_url, auth=auth, authorization_response=redirect_response)
@@ -27,9 +45,7 @@ print(r.content)
 
 top_artists = spotify.get('https://api.spotify.com/v1/me/top/artists')
 top_artists_data = top_artists.content
-import json
-from IPython.display import Image, display
-from pprint import pprint
+
 top_artists_list = json.loads(top_artists_data)['items']
 top_artists_names = []
 for n in top_artists_list:
@@ -37,20 +53,16 @@ for n in top_artists_list:
 
 pprint(top_artists_names)
 
-import os
+
 
 # Replace 'your_actual_api_key_here' with your real Ticketmaster API key
 os.environ['TICKETMASTER_API_KEY'] = 'iPVCrQgdoj3ZTMll74BfuNig2uiYPZKS'
 
-ticketmaster_api_key = os.environ.get('TICKETMASTER_API_KEY')
+ticketmaster_api_key = os.genenv('TICKETMASTER_API_KEY')
 if ticketmaster_api_key:
     print("Ticketmaster API key is set.")
 else:
     print("Ticketmaster API key is not set. Make sure to set it using os.environ.")
-from IPython.core.interactiveshell import import_item
-import os
-import requests
-from datetime import datetime, timedelta
 
 # Retrieve API key from environment variable
 API_KEY = os.environ.get('TICKETMASTER_API_KEY')
