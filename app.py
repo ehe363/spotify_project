@@ -51,14 +51,18 @@ top_artists_names = []
 for n in top_artists_list:
     top_artists_names.append(n["name"])
 
-pprint(top_artists_names)
+print("Your top artists are:")
+for item in top_artists_list:
+    print(item["name"])
+    display(Image(url=item["images"][0]['url'], height=100))
+    print("-----------------------------------------------")
 
-
+#pprint(top_artists_names)
 
 # Replace 'your_actual_api_key_here' with your real Ticketmaster API key
-os.environ['TICKETMASTER_API_KEY'] = 'iPVCrQgdoj3ZTMll74BfuNig2uiYPZKS'
+#os.environ['TICKETMASTER_API_KEY'] = 'iPVCrQgdoj3ZTMll74BfuNig2uiYPZKS'
 
-ticketmaster_api_key = os.genenv('TICKETMASTER_API_KEY')
+ticketmaster_api_key = os.getenv('TICKETMASTER_API_KEY')
 if ticketmaster_api_key:
     print("Ticketmaster API key is set.")
 else:
@@ -97,6 +101,7 @@ def filter_events_by_date(events, days):
 
     return filtered_events
 
+print("Events matching your top artists:")
 for item in top_artists_names:
     events = search_artist_events(item)
 
