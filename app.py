@@ -11,7 +11,6 @@ from datetime import datetime, timedelta
 
 load_dotenv() #> invoking this function loads contents of the ".env" file into the script's environment...
 
-
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 redirect_uri = os.getenv("REDIRECT_URI")
