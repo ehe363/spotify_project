@@ -6,3 +6,6 @@ python-dotenv
 requests_oauthlib
 
 iPython
+
+# for testing:
+pytest
