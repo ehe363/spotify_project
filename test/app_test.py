@@ -1,13 +1,27 @@
+import unittest
 from app import search_artist_events, filter_events_by_date
-from datetime import datetime, timedelta
-import json
-import os
 
-today = datetime.now().date()
+class TestAppFunctions(unittest.TestCase):
 
-def test_data_fetching():
-    result = search_artist_events("Drake")
-    result_filtered = filter_events_by_date(result, 90)
-    for event in result_filtered:
-        event_date = event['dates']['start']['localDate']
-        assert datetime.strptime(event_date,'%y-%m-%d') > today
+    def test_search_artist_events(self):
+        events = search_artist_events("Drake")
+        self.assertIsNotNone(events)
+        self.assertIsInstance(events, list)
+
+    def test_filter_events_by_date(self):
+        dummy_events = [
+            {
+                "name": "Event 1",
+                "dates": {"start": {"localDate": "2023-08-13"}}
+            },
+            {
+                "name": "Event 2",
+                "dates": {"start": {"localDate": "2023-08-14"}}
+            },
+            # ... add more dummy events
+        ]
+        filtered_events = filter_events_by_date(dummy_events, 1)
+        self.assertEqual(len(filtered_events), 1)
+
+if __name__ == '__main__':
+    unittest.main()
