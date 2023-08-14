@@ -8,13 +8,13 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-client_id = os.getenv("SPOTIFY_CLIENT_ID")
-client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
-redirect_uri = os.getenv("SPOTIFY_REDIRECT_URI")
+client_id = os.getenv("bbdc1b66814b402a934517c6d913f288")
+client_secret = os.getenv("0b8a4dbe8d244614b7a4ebbc10b19fec")
+redirect_uri = os.getenv("http://localhost:5000/auth/spotify/callback")
 
 authorization_base_url = "https://accounts.spotify.com/authorize"
 token_url = "https://accounts.spotify.com/api/token"
-scope = ["user-read-currently-playing", "user-top-read"]
+scope = ["user-read-current-playing", "user-top-read", "user-read-email"]
 
 @app.route('/')
 def index():
@@ -48,4 +48,5 @@ def profile():
     return render_template('profile.html', profile=profile, top_artists=top_artists)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Run the app with SSL support
+    app.run(debug=True, ssl_context=('server.crt', 'server.key'))
