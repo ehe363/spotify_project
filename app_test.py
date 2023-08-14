@@ -1,5 +1,5 @@
 import unittest
-from test.app import search_artist_events, filter_events_by_date
+from app import search_artist_events, filter_events_by_date
 
 class TestAppFunctions(unittest.TestCase):
 
