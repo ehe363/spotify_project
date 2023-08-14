@@ -15,9 +15,5 @@ conda activate spotify-env
 #Install packages:
 pip install -r requirements.txt
 
-pip install flask
-
-python app.py
-
 #Run the app:
 python -m app
